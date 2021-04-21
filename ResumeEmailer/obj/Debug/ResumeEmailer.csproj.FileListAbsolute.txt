@@ -1,0 +1,10 @@
+C:\Users\HP\source\repos\ResumeManager\ResumeEmailer\obj\Debug\ResumeEmailer.csprojAssemblyReference.cache
+C:\Users\HP\source\repos\ResumeManager\ResumeEmailer\obj\Debug\ResumeEmailer.Form1.resources
+C:\Users\HP\source\repos\ResumeManager\ResumeEmailer\obj\Debug\ResumeEmailer.Properties.Resources.resources
+C:\Users\HP\source\repos\ResumeManager\ResumeEmailer\obj\Debug\ResumeEmailer.csproj.GenerateResource.cache
+C:\Users\HP\source\repos\ResumeManager\ResumeEmailer\obj\Debug\ResumeEmailer.csproj.CoreCompileInputs.cache
+C:\Users\HP\source\repos\ResumeManager\ResumeEmailer\bin\Debug\ResumeEmailer.exe.config
+C:\Users\HP\source\repos\ResumeManager\ResumeEmailer\bin\Debug\ResumeEmailer.exe
+C:\Users\HP\source\repos\ResumeManager\ResumeEmailer\bin\Debug\ResumeEmailer.pdb
+C:\Users\HP\source\repos\ResumeManager\ResumeEmailer\obj\Debug\ResumeEmailer.exe
+C:\Users\HP\source\repos\ResumeManager\ResumeEmailer\obj\Debug\ResumeEmailer.pdb
