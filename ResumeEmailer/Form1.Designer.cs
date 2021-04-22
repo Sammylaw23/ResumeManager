@@ -39,7 +39,7 @@
             this.sendResume.TabIndex = 0;
             this.sendResume.Text = "SEND RESUME";
             this.sendResume.UseVisualStyleBackColor = true;
-            this.sendResume.Click += new System.EventHandler(this.sendResume_Click);
+            this.sendResume.Click += new System.EventHandler(this.sendResume_ClickAsync);
             // 
             // Form1
             // 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ResumeEmailer.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -6,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -155,28 +157,98 @@ namespace ResumeEmailer
             //sendmail.Dispose();
         }
 
-        public void SendEmailGmail(string recipient, string EmSuj, string EmMsg)
+        public bool SendEmailGmail(string recipient, string EmailSubject, string htmlString, string nameOfFile, string filePath)
         {
             try
             {
-                string fromMailAddress = ConfigurationManager.AppSettings["FromMailAddress"];
+                Applicant applicant = new Applicant();
+
                 MailMessage message = new MailMessage();
                 SmtpClient smtp = new SmtpClient();
-                message.From = new MailAddress(fromMailAddress);
+                message.From = new MailAddress(applicant.ApplicantEmail);
                 message.To.Add(new MailAddress(recipient));
-                message.Subject = EmMsg;
-                //message.IsBodyHtml = true; //to make message body as html  
-                //message.Body = htmlString;
+                message.Subject = EmailSubject;
+                message.IsBodyHtml = true; //to make message body as html  
+                message.Body = htmlString;
+
+                System.Net.Mail.Attachment myAttachment = new System.Net.Mail.Attachment(filePath);
+                myAttachment.Name = nameOfFile;
+                message.Attachments.Add(myAttachment);
+
                 smtp.Port = 587;
                 smtp.Host = "smtp.gmail.com"; //for gmail host  
                 smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential(fromMailAddress, "Sammylaw2310%");
+                smtp.Credentials = new NetworkCredential(applicant.ApplicantEmail, "Sammylaw2310%");
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.Send(message);
+                return true;
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                return false;
+                //https://accounts.google.com/DisplayUnlockCaptcha
+            }
         }
+
+        public bool SendEmailHtmlMessageAttachment(string sendFrom, string sendTo, string sendSubject, string HtmlMessage, byte[] pdfbytes, string NameofFile, string filePath)
+        {
+            try
+            {
+                System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage();
+                message.IsBodyHtml = true;
+                message.Body = HtmlMessage;
+                message.Subject = sendSubject;
+
+                message.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(HtmlMessage, new System.Net.Mime.ContentType("text/html")));
+
+                AlternateView avHtml = AlternateView.CreateAlternateViewFromString(HtmlMessage, null, MediaTypeNames.Text.Html);
+
+                // Add the alternate views instead of using MailMessage.Body
+                MailMessage m = new MailMessage();
+                m.AlternateViews.Add(avHtml);
+
+                //message.From = new MailAddress("GTBank E-Statement<" + sendFrom + ">");
+                message.From = new MailAddress(sendFrom.Trim());
+
+                foreach (string addr in sendTo.Replace(',', ';').Split(';'))
+                {
+                    message.To.Add(new MailAddress(addr.Trim()));
+                }
+
+                if (pdfbytes != null && pdfbytes.Length > 0)
+                {
+                    System.Net.Mail.Attachment myAttachment = new System.Net.Mail.Attachment(filePath);
+                    myAttachment.Name = NameofFile;
+                    message.Attachments.Add(myAttachment);
+                }
+
+
+                // create smtp client at mail server location
+                SmtpClient client = new SmtpClient(emailServer);
+
+                // add credentials
+
+                client.UseDefaultCredentials = false;
+
+                // send message
+                client.Send(message);
+
+                // message.Attachments.Clear();
+                message.Attachments.Dispose();
+                client.Dispose();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //ErrHandler.LogError("Exception sending Email: " + ex.Message);
+                return false;
+            }
+
+        }
+
+
     }
 }
+
 

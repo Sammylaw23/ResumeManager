@@ -58,6 +58,7 @@
     <Compile Include="Helpers.cs" />
     <Compile Include="Interfaces\IGetAddresses.cs" />
     <Compile Include="Interfaces\IGetDocuments.cs" />
+    <Compile Include="Models\Applicant.cs" />
     <Compile Include="MyLogger.cs" />
     <Compile Include="PathGenerator.cs" />
     <Compile Include="Program.cs" />
@@ -74,6 +75,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="bin\Debug\Documents\OfferLetter\Offer Letter STANBIC IBTC.docx" />
+    <None Include="bin\Debug\Documents\Resume\Samuel Lawal Software Developer Resume.DOCX" />
+    <None Include="bin\Debug\ResumeEmailer.exe.config" />
+    <None Include="Documents\OfferLetter\Offer Letter STANBIC IBTC.docx" />
+    <None Include="Documents\Resume\Samuel Lawal Software Developer Resume.DOCX" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -85,14 +91,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bin\Debug\Database\" />
+    <Folder Include="bin\Debug\Documents\Applications\" />
     <Folder Include="Database\" />
-    <Folder Include="Documents\Addresses\" />
     <Folder Include="Documents\EmailBody\" />
-    <Folder Include="Documents\OfferLetter\" />
-    <Folder Include="Documents\Resume\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\Documents\Addresses\Addresses.txt" />
+    <Content Include="bin\Debug\Documents\EmailBody\EmailBody.txt" />
+    <Content Include="bin\Debug\ResumeEmailer.exe" />
+    <Content Include="bin\Debug\ResumeEmailer.pdb" />
+    <Content Include="Documents\Addresses\Addresses.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
